@@ -1,0 +1,13 @@
+Error executing job with overrides: ['env=heo', 'proxy=heo', 'logger.do.online=True']
+Traceback (most recent call last):
+  File "/Users/michaelcherczynski/Desktop/Dunia - case/solution/gflownet/main.py", line 52, in main
+    env = env_maker()
+  File "/Users/michaelcherczynski/Desktop/Dunia - case/solution/gflownet/gflownet/envs/heo.py", line 28, in __init__
+    super().__init__(**kwargs)
+  File "/Users/michaelcherczynski/Desktop/Dunia - case/solution/gflownet/gflownet/envs/base.py", line 50, in __init__
+    self.reset()
+  File "/Users/michaelcherczynski/Desktop/Dunia - case/solution/gflownet/gflownet/envs/base.py", line 778, in reset
+    self.state = copy(self.source)
+AttributeError: 'HEO' object has no attribute 'source'
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

@@ -1,0 +1,159 @@
+_wandb:
+    value:
+        cli_version: 0.19.3
+        m: []
+        python_version: 3.10.15
+        t:
+            "1":
+                - 1
+                - 50
+                - 55
+            "2":
+                - 1
+                - 50
+                - 55
+            "3":
+                - 2
+                - 13
+                - 14
+                - 16
+                - 18
+                - 23
+                - 55
+                - 61
+            "4": 3.10.15
+            "5": 0.19.3
+            "8":
+                - 5
+            "12": 0.19.3
+            "13": darwin-arm64
+device:
+    value: cpu
+env:
+    value:
+        _target_: gflownet.envs.scrabble.Scrabble
+        buffer:
+            data_path: null
+            replay_capacity: 0
+            test:
+                "n": 10
+                type: uniform
+            train: null
+        conditional: false
+        continuous: false
+        env_id: env
+        fixed_distr_params: null
+        id: scrabble
+        random_distr_params: null
+        skip_mask_check: false
+evaluator:
+    value:
+        _target_: gflownet.evaluator.base.BaseEvaluator
+        checkpoints_period: 1000
+        first_it: true
+        kde:
+            bandwidth: 0.1
+            kernel: gaussian
+        logprobs_batch_size: 100
+        logprobs_bootstrap_size: 10000
+        max_data_logprobs: 100000
+        metrics: all
+        "n": 100
+        n_grid: 40000
+        n_top_k: 5000
+        n_trajs_logprobs: 10
+        period: 100
+        top_k: 100
+        top_k_period: -1
+        train_log_period: 1
+float_precision:
+    value: 32
+gflownet:
+    value:
+        _target_: gflownet.gflownet.GFlowNetAgent
+        batch_reward: true
+        mask_invalid_actions: true
+        num_empirical_loss: 200000
+        optimizer:
+            adam_beta1: 0.9
+            adam_beta2: 0.999
+            batch_size:
+                backward_dataset: 0
+                backward_replay: 0
+                forward: 10
+            bootstrap_tau: 0
+            clip_grad_norm: 0
+            early_stopping: 0
+            ema_alpha: 0.5
+            loss: trajectorybalance
+            lr: 0.0001
+            lr_decay_gamma: 0.5
+            lr_decay_period: 1000000
+            lr_z_mult: 10
+            method: adam
+            n_train_steps: 2000
+            sgd_momentum: 0.9
+            train_to_sample_ratio: 1
+            z_dim: 16
+        pct_offline: 0
+        random_action_prob: 0
+        replay_capacity: 0
+        replay_sampling: permutation
+        seed: 0
+        state_flow: null
+        temperature_logits: 1
+        train_sampling: permutation
+        use_context: false
+logger:
+    value:
+        _target_: gflownet.utils.logger.Logger
+        context: "0"
+        debug: false
+        do:
+            online: true
+            times: false
+        entity: null
+        lightweight: false
+        logdir:
+            ckpts: ckpts
+            overwrite: true
+            path: /Users/michaelcherczynski/Desktop/Dunia - case/solution/gflownet/logs/local/2025-01-15_16-50-23_006065
+            root: ./logs
+        notes: null
+        progress: true
+        project_name: GFlowNet
+        tags:
+            - gflownet
+n_samples:
+    value: 1000
+policy:
+    value:
+        _target_: gflownet.policy.base.Policy
+        backward:
+            checkpoint: null
+            reload_ckpt: false
+            shared_weights: true
+        forward:
+            checkpoint: null
+            n_hid: 128
+            n_layers: 2
+            reload_ckpt: false
+            type: mlp
+        shared: null
+proxy:
+    value:
+        _target_: gflownet.proxy.scrabble.ScrabbleScorer
+        do_clip_rewards: false
+        logreward_function: null
+        reward_function: identity
+        reward_min: 0
+        vocabulary_check: false
+seed:
+    value: 0
+user:
+    value:
+        data:
+            alanine_dipeptide: ~/gflownet/data/alanine_dipeptide_conformers_1.npy
+            root: ./data
+        logdir:
+            root: ./logs

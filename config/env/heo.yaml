@@ -1,0 +1,13 @@
+defaults:
+  - base
+
+_target_: gflownet.envs.heo.HEO
+
+id: heo
+# Buffer
+buffer:
+  data_path: null
+  train: null
+  test:
+    type: uniform
+    n: 10

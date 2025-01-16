@@ -1,0 +1,17 @@
+{"time":"2025-01-15T16:10:21.02384+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.3","symlink path":"/Users/michaelcherczynski/Desktop/Dunia - case/solution/gflownet/wandb/run-20250115_161020-vuee8swl/logs/debug-core.log"}
+{"time":"2025-01-15T16:10:21.135484+01:00","level":"INFO","msg":"created new stream","id":"vuee8swl"}
+{"time":"2025-01-15T16:10:21.135678+01:00","level":"INFO","msg":"stream: started","id":"vuee8swl"}
+{"time":"2025-01-15T16:10:21.135974+01:00","level":"INFO","msg":"sender: started","stream_id":"vuee8swl"}
+{"time":"2025-01-15T16:10:21.136011+01:00","level":"INFO","msg":"handler: started","stream_id":"vuee8swl"}
+{"time":"2025-01-15T16:10:21.136295+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"vuee8swl"}
+{"time":"2025-01-15T16:10:21.366206+01:00","level":"ERROR","msg":"HTTP error","status":401,"method":"POST","url":"https://api.wandb.ai/graphql"}
+{"time":"2025-01-15T16:10:21.366482+01:00","level":"ERROR","msg":"sender: upsertRun:","error":"failed to upsert bucket: returned error 401 Unauthorized: {\"errors\":[{\"message\":\"user is not logged in\",\"path\":[\"upsertBucket\"],\"extensions\":{\"code\":\"PERMISSION_ERROR\"}}],\"data\":{\"upsertBucket\":null}}"}
+{"time":"2025-01-15T16:10:21.375355+01:00","level":"INFO","msg":"stream: closing","id":"vuee8swl"}
+{"time":"2025-01-15T16:10:21.375637+01:00","level":"ERROR","msg":"sender: upsertConfig: RunRecord is nil"}
+{"time":"2025-01-15T16:10:21.56059+01:00","level":"ERROR","msg":"HTTP error","status":404,"method":"POST","url":"https://api.wandb.ai/graphql"}
+{"time":"2025-01-15T16:10:21.560881+01:00","level":"ERROR","msg":"runfiles: CreateRunFiles returned error: returned error 404 Not Found: {\"errors\":[{\"message\":\"project /GFlowNet not found during createRunFiles\",\"path\":[\"createRunFiles\"]}],\"data\":{\"createRunFiles\":null}}"}
+{"time":"2025-01-15T16:10:21.561906+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-15T16:10:21.561938+01:00","level":"INFO","msg":"handler: closed","stream_id":"vuee8swl"}
+{"time":"2025-01-15T16:10:21.561947+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"vuee8swl"}
+{"time":"2025-01-15T16:10:21.561952+01:00","level":"INFO","msg":"sender: closed","stream_id":"vuee8swl"}
+{"time":"2025-01-15T16:10:21.562023+01:00","level":"INFO","msg":"stream: closed","id":"vuee8swl"}

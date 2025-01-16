@@ -1,0 +1,3 @@
+- env=scrabble
+- proxy=scrabble
+- logger.do.online=True
