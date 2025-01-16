@@ -37,6 +37,18 @@ This work is based on the original [GFlowNet repository](https://github.com/alex
   Contains the proxy model implementation (the MLP selected from `regression_heo.ipynb`). This proxy serves as the reward function for the GFlowNet during training.
 
 ---
+## Results
+Plotting the loss of the policy network and max/mean/min of overpotential
+
+![W&B Chart 1](W&BChart1_16_2025,12_16_15PM.png)
+
+![W&B Chart 2](W&BChart1_16_2025,12_16_37PM.png)
+
+![W&B Chart 3](W&BChart1_16_2025,12_16_51PM.png)
+
+![W&B Chart 4](W&BChart1_16_2025,12_17_56PM.png)
+
+
 
 ## Running the Code
 
