@@ -1,0 +1,15 @@
+{"time":"2025-01-22T18:08:34.768866+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.3","symlink path":"/Users/michaelcherczynski/Desktop/Dunia - case/solution/gflownet/wandb/run-20250122_180834-fki3dzqu/logs/debug-core.log"}
+{"time":"2025-01-22T18:08:34.880271+01:00","level":"INFO","msg":"created new stream","id":"fki3dzqu"}
+{"time":"2025-01-22T18:08:34.880461+01:00","level":"INFO","msg":"stream: started","id":"fki3dzqu"}
+{"time":"2025-01-22T18:08:34.880699+01:00","level":"INFO","msg":"handler: started","stream_id":"fki3dzqu"}
+{"time":"2025-01-22T18:08:34.880734+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"fki3dzqu"}
+{"time":"2025-01-22T18:08:34.880878+01:00","level":"INFO","msg":"sender: started","stream_id":"fki3dzqu"}
+{"time":"2025-01-22T18:08:35.177468+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-22T18:08:35.998971+01:00","level":"INFO","msg":"stream: closing","id":"fki3dzqu"}
+{"time":"2025-01-22T18:08:35.999308+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-01-22T18:08:35.999767+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-01-22T18:08:36.629041+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-22T18:08:36.864622+01:00","level":"INFO","msg":"handler: closed","stream_id":"fki3dzqu"}
+{"time":"2025-01-22T18:08:36.864669+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"fki3dzqu"}
+{"time":"2025-01-22T18:08:36.864911+01:00","level":"INFO","msg":"sender: closed","stream_id":"fki3dzqu"}
+{"time":"2025-01-22T18:08:36.866409+01:00","level":"INFO","msg":"stream: closed","id":"fki3dzqu"}

@@ -38,7 +38,7 @@ class HEO(GFlowNetEnv):
         kwargs : dict
             Additional arguments passed to the superclass.
         """
-        self.sum = 1  # The sum constraint for state elements
+        self.sum_left = 1000  # The sum constraint for state elements
         self.max_length = max_length
         self.max_value = max_value
         self.pad_value = pad_value
@@ -60,7 +60,10 @@ class HEO(GFlowNetEnv):
         --------
         A list of actions where each action is a tuple with one value.
         """
-        first = list(np.linspace(0., 500, 101)) + [self.eos_token]
+
+        # discretized numbers from 0 to 1, and eos_token
+        # the numbers are not normalized for numerical stability
+        first = list(np.linspace(0., 1000, 201)) + [self.eos_token]
         return [(n,) for n in first]
 
     def step(self, action: List, skip_mask_check: bool = False):
@@ -101,6 +104,7 @@ class HEO(GFlowNetEnv):
         self.state[self.n_actions] = action[0] / 1000  # Normalize action value
         self.n_actions += 1
 
+        self.sum_left -= action[0]
         return self.state, action, valid
 
     def get_parents(self, state, done):
@@ -159,11 +163,18 @@ class HEO(GFlowNetEnv):
         if done is None:
             done = self.done
         if done:
-            return [True] * 102
+            return [True] * 202
         elif state[-1] >= self.length_traj:
-            return [True] * 102
+            return [True] * 202
+        elif self.n_actions ==5:
+            possibilities = list(np.linspace(0., 1000, 201))
+            mask = [bool(n != self.sum_left) for n in possibilities] + [True]  #eos_token is always True here
+            return mask
         else:
-            return [False] * 102
+            # Return the False for values that are more than self.
+            possibilities = list(np.linspace(0., 1000, 201))
+            mask = [bool(n > self.sum_left) for n in possibilities] + [True]  #eos_token is always True here
+            return mask
 
     def states2policy(self, states: Union[List[List[int]], List[TensorType["max_length"]]]) -> TensorType["batch", "policy_input_dim"]:
         """
@@ -181,7 +192,7 @@ class HEO(GFlowNetEnv):
         A tensor of one-hot encoded states.
         """
         states = tlong(states, device=self.device)
-        return F.one_hot(states, 102).reshape(states.shape[0], -1).to(self.float)
+        return F.one_hot(states, 202).reshape(states.shape[0], -1).to(self.float)
 
     def states2proxy(self, states: Union[List[List[int]], List[TensorType["max_length"]]]) -> TensorType["batch", "state_dim"]:
         """

@@ -1,0 +1,16 @@
+{"time":"2025-01-22T18:14:45.685971+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.3","symlink path":"/Users/michaelcherczynski/Desktop/Dunia - case/solution/gflownet/wandb/run-20250122_181445-ejooudu8/logs/debug-core.log"}
+{"time":"2025-01-22T18:14:45.797072+01:00","level":"INFO","msg":"created new stream","id":"ejooudu8"}
+{"time":"2025-01-22T18:14:45.797114+01:00","level":"INFO","msg":"stream: started","id":"ejooudu8"}
+{"time":"2025-01-22T18:14:45.797136+01:00","level":"INFO","msg":"handler: started","stream_id":"ejooudu8"}
+{"time":"2025-01-22T18:14:45.797136+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"ejooudu8"}
+{"time":"2025-01-22T18:14:45.797187+01:00","level":"INFO","msg":"sender: started","stream_id":"ejooudu8"}
+{"time":"2025-01-22T18:14:46.08488+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-22T18:15:31.542824+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-01-22T18:15:31.543411+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-01-22T18:15:32.305316+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-22T18:15:32.54874+01:00","level":"INFO","msg":"handler: operation stats","stats":{"operations":[{"desc":"uploading data","runtime_seconds":0.243296709}],"total_operations":1}}
+{"time":"2025-01-22T18:15:33.726035+01:00","level":"INFO","msg":"stream: closing","id":"ejooudu8"}
+{"time":"2025-01-22T18:15:33.726055+01:00","level":"INFO","msg":"handler: closed","stream_id":"ejooudu8"}
+{"time":"2025-01-22T18:15:33.726065+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"ejooudu8"}
+{"time":"2025-01-22T18:15:33.726088+01:00","level":"INFO","msg":"sender: closed","stream_id":"ejooudu8"}
+{"time":"2025-01-22T18:15:33.726158+01:00","level":"INFO","msg":"stream: closed","id":"ejooudu8"}

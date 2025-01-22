@@ -1,0 +1,15 @@
+{"time":"2025-01-22T18:07:08.378939+01:00","level":"INFO","msg":"stream: starting","core version":"0.19.3","symlink path":"/Users/michaelcherczynski/Desktop/Dunia - case/solution/gflownet/wandb/run-20250122_180708-eiusmirg/logs/debug-core.log"}
+{"time":"2025-01-22T18:07:08.491387+01:00","level":"INFO","msg":"created new stream","id":"eiusmirg"}
+{"time":"2025-01-22T18:07:08.491561+01:00","level":"INFO","msg":"stream: started","id":"eiusmirg"}
+{"time":"2025-01-22T18:07:08.491629+01:00","level":"INFO","msg":"handler: started","stream_id":"eiusmirg"}
+{"time":"2025-01-22T18:07:08.491873+01:00","level":"INFO","msg":"writer: Do: started","stream_id":"eiusmirg"}
+{"time":"2025-01-22T18:07:08.49194+01:00","level":"INFO","msg":"sender: started","stream_id":"eiusmirg"}
+{"time":"2025-01-22T18:07:08.808802+01:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-01-22T18:07:09.705199+01:00","level":"INFO","msg":"stream: closing","id":"eiusmirg"}
+{"time":"2025-01-22T18:07:09.7055+01:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-01-22T18:07:09.70586+01:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-01-22T18:07:10.387247+01:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-01-22T18:07:10.664961+01:00","level":"INFO","msg":"handler: closed","stream_id":"eiusmirg"}
+{"time":"2025-01-22T18:07:10.665003+01:00","level":"INFO","msg":"writer: Close: closed","stream_id":"eiusmirg"}
+{"time":"2025-01-22T18:07:10.665032+01:00","level":"INFO","msg":"sender: closed","stream_id":"eiusmirg"}
+{"time":"2025-01-22T18:07:10.665997+01:00","level":"INFO","msg":"stream: closed","id":"eiusmirg"}

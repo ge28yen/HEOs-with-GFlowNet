@@ -1,0 +1,1 @@
+{"Jensen Shannon Div.":-1,"_step":1,"BS Std(logp) / NLL":-1,"Corr. (test probs., rewards)":0,"Mean BS Std(p)":-1,"KL Div.":-1,"Mean BS Std(logp)":-1,"_timestamp":1.737565655014186e+09,"_runtime":1.43027,"NLL of test data":0,"L1 error":-1,"_wandb":{"runtime":1},"Var(logR - logp) test":-1}
