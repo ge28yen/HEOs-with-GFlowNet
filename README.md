@@ -151,7 +151,15 @@ At every step:
 - **Training Curves**: Typical GFlowNet metrics (policy loss, trajectory coverage, etc.) plus min/mean/max overpotential.  
 - **Compositions**: The GFlowNet converges toward compositions with **lower** predicted overpotential but still explores a diversity of solutions.
 
-*(Add or link plots, charts, or logs here.)*
+![W&B Chart 1](W&BChart1_16_2025,12_16_15PM.png)
+
+![W&B Chart 2](W&BChart1_16_2025,12_16_37PM.png)
+
+![W&B Chart 3](W&BChart1_16_2025,12_16_51PM.png)
+
+![W&B Chart 4](W&BChart1_16_2025,12_17_56PM.png)
+
+
 
 ---
 
