@@ -1,58 +1,170 @@
 # GFlowNet for Catalyst Design: High Entropy Oxides (HEOs)
 
-This repository contains an implementation of GFlowNet for tackling the catalyst design problem, with a focus on sampling diverse **High Entropy Oxides (HEOs)** that exhibit low overpotential values.
+This repository contains an implementation of **GFlowNet** for tackling the catalyst design problem, with a focus on **sampling diverse High Entropy Oxides (HEOs)** that exhibit **low overpotential** values. The project includes:
 
-This proof-of-concept implementation showcases the integration of the **GFlowNet Framework** with a custom environment and proxy model to explore the design space of HEOs effectively.
-
-This work is based on the original [GFlowNet repository](https://github.com/alexhernandezgarcia/gflownet) and extends it to address the HEO catalyst design problem.
-
----
-
-## Overview
-
-### **Key Features**
-- **Data-Driven Approach:** Leverages data from ~200 lab experiments for training and testing.
-- **Custom Environment:** Implements a tree-like assembly process for HEOs.
-- **Proxy Model:** Uses a trained Multi-Layer Perceptron (MLP) as a reward model to guide the GFlowNet.
-- **Exploration Focus:** Enables the discovery of diverse, promising HEO candidates.
+- A **custom environment** that describes how HEO compositions are incrementally built.  
+- A **proxy model** trained on real experimental data (~200 lab experiments) to simulate a lab’s response (overpotential).  
+- A **GFlowNet** agent that samples new HEO compositions in proportion to their predicted reward.
 
 ---
 
-## Repository Structure
-
-### **Core Files**
-- **`data.csv`**  
-  Contains experimental data from ~200 lab experiments, which is used for training and testing models.
-
-- **`regression_heo.ipynb`**  
-  Jupyter notebook containing:
-  - Data exploration and preprocessing.
-  - Regression experiments using classical machine learning models and simple deep learning approaches.
-  - Final trained model selection (an MLP).
-
-- **`gflownet/envs/heo.py`**  
-  Implements the environment for assembling HEOs in a tree-like structure. This environment defines the state and action space for the GFlowNet.
-
-- **`gflownet/proxy/heo.py`**  
-  Contains the proxy model implementation (the MLP selected from `regression_heo.ipynb`). This proxy serves as the reward function for the GFlowNet during training.
+## Table of Contents
+1. [Motivation and Background](#motivation-and-background)  
+2. [Approach Summary](#approach-summary)  
+3. [Data and Simulated Lab](#data-and-simulated-lab)  
+4. [HEO Environment](#heo-environment)  
+5. [Modeling Pipeline](#modeling-pipeline)  
+6. [GFlowNet Integration](#gflownet-integration)  
+7. [Repository Structure](#repository-structure)  
+8. [How to Run](#how-to-run)  
+9. [Results](#results)  
+10. [Future Directions](#future-directions)  
+11. [Acknowledgments](#acknowledgments)
 
 ---
-## Results
-Plotting the loss of the policy network and max/mean/min of overpotential
 
-![W&B Chart 1](W&BChart1_16_2025,12_16_15PM.png)
+## 1. Motivation and Background
 
-![W&B Chart 2](W&BChart1_16_2025,12_16_37PM.png)
+**High Entropy Oxides (HEOs)** are a class of materials formed by mixing multiple metal cations. They have shown promise in **electrocatalytic applications**, including the **Oxygen Evolution Reaction (OER)**—a key step in water splitting. Because the composition space is enormous, a **data-driven active learning** approach can help guide the discovery process efficiently.
 
-![W&B Chart 3](W&BChart1_16_2025,12_16_51PM.png)
+---
 
-![W&B Chart 4](W&BChart1_16_2025,12_17_56PM.png)
+## 2. Approach Summary
 
+1. **Proxy Model (Simulated Lab)**  
+   - I **trained a regression model** (a multilayer perceptron, MLP) on real experimental data (~200 lab experiments) to predict overpotentials.  
+   - This MLP acts as a **stand-in** for a real lab: given any composition, it returns the predicted overpotential.
 
+2. **GFlowNet Agent**  
+   - The GFlowNet constructs HEO compositions step by step (incrementally deciding the fraction of each metal).  
+   - At a final composition, the MLP is queried to produce a reward (commonly defined as the **inverse** of predicted overpotential).
 
-## Running the Code
+3. **Active Learning Loop**  
+   - The GFlowNet proposes a new composition based on its current policy.  
+   - The proxy model supplies an overpotential, which is turned into a reward.  
+   - The GFlowNet updates its policy to favor higher rewards (lower overpotentials).  
+   - Repeat.
 
-To train and run the GFlowNet on the HEO catalyst design problem, use the following command:
+---
+
+## 3. Data and Simulated Lab
+
+I received **~200 experimental measurements**, each with:
+- **Compositions** of various metals (e.g., Fe, Ni, Co, etc.).  
+- **Measured overpotentials** for OER.
+
+Since I only have these discrete measurements, I train a **proxy MLP** to interpolate or predict overpotential for novel compositions. This MLP is then used in the GFlowNet environment to assign rewards.
+
+---
+
+## 4. HEO Environment
+
+To allow GFlowNet to **incrementally build** a valid HEO composition, I developed a custom environment (`HEO`) that:
+
+- Maintains a **6-element vector**, each entry representing the fraction of one metal in the final composition.  
+- Enforces that the total fraction sums to **1.0** (or 100%, depending on normalization).  
+- Provides a **discrete action space** where each action adds a chosen fraction to the composition or triggers an “end-of-sequence” (EOS) event.  
+- Prevents invalid moves by masking actions that exceed the remaining fraction “budget.”  
+
+At every step:
+1. The GFlowNet picks a fraction (or EOS token).  
+2. The environment updates the current composition and reduces the remaining fraction budget.  
+3. If all 6 fractions are chosen or the EOS token is selected, the environment is marked **done** and a final composition is submitted to the proxy model for a **predicted overpotential**.
+
+---
+
+## 5. Modeling Pipeline
+
+1. **Data Analysis & Regression**  
+   - Explored the ~200 data points, tested classical ML models (RF, Linear, SVM) plus an MLP.  
+   - Chose an **MLP** for final deployment due to a decent balance of accuracy and simplicity.
+
+2. **Proxy Model**  
+   - The chosen MLP is loaded within the GFlowNet code.  
+   - It receives the 6-element composition and returns a predicted **overpotential**.  
+   - Reward = some function of \( \frac{1}{\text{overpotential}} \) (or \( \frac{1}{1 + \text{overpotential}} \)), chosen to focus on minimizing overpotential.
+
+---
+
+## 6. GFlowNet Integration
+
+- The GFlowNet interacts with the HEO environment via:
+  - **`step(action)`** to add a fraction or select EOS.  
+  - **Masking** of invalid actions to ensure compositions remain valid and do not exceed a total fraction of 1.0.  
+  - **States-to-proxy** transformations so the MLP can easily predict the overpotential.  
+
+- Once a final state (composition) is reached, I log its predicted overpotential as the “reward” for that sample.
+
+---
+
+## 7. Repository Structure
 
 ```bash
-python main.py env=heo proxy=heo
+.
+├── data/
+│   └── data.csv                # ~200 lab experiments (composition, overpotential)
+├── regression_heo.ipynb        # Notebook: data analysis, regression models, MLP training
+├── gflownet/
+│   ├── envs/
+│   │   └── heo.py              # GFlowNet environment for HEO design
+│   ├── proxy/
+│   │   └── heo.py              # Proxy model (MLP) for overpotential prediction
+│   └── ...                     # Other GFlowNet framework files
+├── main.py                     # Entry point for running the GFlowNet with the HEO environment
+├── README.md                   # This README
+└── requirements.txt            # Dependencies (PyTorch, scikit-learn, etc.)
+```
+
+---
+
+## 8. How to Run
+
+1. **Clone and Install**  
+   - Run `git clone https://github.com/your-username/HEO-GFlowNet.git`  
+   - Then `cd HEO-GFlowNet`  
+   - Finally `pip install -r requirements.txt`
+
+2. **(Optional) Train the Proxy Model**  
+   - Open `regression_heo.ipynb`, run data exploration, train the MLP, and save the model weights.
+
+3. **Run the GFlowNet**  
+   - Execute `python main.py env=heo proxy=heo`  
+   This will:
+   - Initialize the `HEO` environment.  
+   - Load the MLP (proxy model).  
+   - Start sampling compositions, retrieving predicted overpotentials, and updating the GFlowNet policy.
+
+4. **Monitor Logs**  
+   - Check console outputs or your logging tool (e.g., Weights & Biases) for real-time training curves.  
+   - Inspect final compositions and their predicted overpotentials.
+
+---
+
+## 9. Results
+
+- **Training Curves**: Typical GFlowNet metrics (policy loss, trajectory coverage, etc.) plus min/mean/max overpotential.  
+- **Compositions**: The GFlowNet converges toward compositions with **lower** predicted overpotential but still explores a diversity of solutions.
+
+*(Add or link plots, charts, or logs here.)*
+
+---
+
+## 10. Future Directions
+
+- **Adaptive Proxy**: Retrain or refine the MLP as more synthetic “data” is generated by the GFlowNet.  
+- **Continuous Actions**: Investigate if a truly continuous approach (vs. discrete steps) can be integrated.  
+- **Multi-Objective**: Incorporate additional objectives (e.g., cost, material stability).  
+- **Uncertainty Quantification**: Use Bayesian neural networks or Gaussian Processes to guide exploration with predicted uncertainty.
+
+---
+
+## 11. Acknowledgments
+
+- **Original GFlowNet Repository** by [Alex Hernandez-Garcia](https://github.com/alexhernandezgarcia/gflownet).  
+- **Data** provided as part of a technical assignment (~200 lab experiments).  
+- Thanks to the community behind **active learning** for materials discovery.  
+- **Note**: nollm was used for this solution, and it was created for the sake of practice.
+
+---
+
+*Last updated: YYYY-MM-DD*
