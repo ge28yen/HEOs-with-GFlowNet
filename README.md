@@ -49,11 +49,17 @@ This repository contains an implementation of **GFlowNet** for tackling the cata
 
 ## 3. Data and Simulated Lab
 
-I received **~200 experimental measurements**, each with:
-- **Compositions** of various metals (e.g., Fe, Ni, Co, etc.).  
-- **Measured overpotentials** for OER.
+This study relies on ~200 experimental measurements, each with:
 
-Since I only have these discrete measurements, I train a **proxy MLP** to interpolate or predict overpotential for novel compositions. This MLP is then used in the GFlowNet environment to assign rewards.
+- Compositions of various metals (e.g., Fe, Ni, Co, etc.).
+
+- Measured overpotentials for OER.
+
+These experimental data originate from:
+
+Zhu et al., "Automated synthesis of oxygen-producing catalysts from Martian meteorites by a robotic AI chemist," Nature Synthesis, 2024. DOI: 10.1038/s44160-023-00424-1.
+
+Since only discrete measurements were available, a proxy MLP was trained to interpolate or predict overpotential for novel compositions. This MLP is then used in the GFlowNet environment to assign rewards.
 
 ---
 
@@ -163,8 +169,8 @@ At every step:
 - **Original GFlowNet Repository** by [Alex Hernandez-Garcia](https://github.com/alexhernandezgarcia/gflownet).  
 - **Data** provided as part of a technical assignment (~200 lab experiments).  
 - Thanks to the community behind **active learning** for materials discovery.  
-- **Note**: nollm was used for this solution, and it was created for the sake of practice.
+- **Note**: no LLM was used for this solution, and it was created for the sake of practice.
 
 ---
 
-*Last updated: YYYY-MM-DD*
+*Last updated: 2025-02-09*
